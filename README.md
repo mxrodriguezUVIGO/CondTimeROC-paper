@@ -3,7 +3,9 @@ The repository contains the `R`-code needed to replicate the simulation study ou
 
    *Penalised spline estimation of covariate-specific time-dependent ROC curves*
 
-by Maria Xose Rodriguez Alvarez and Vanda Inacio
+by Maria Xose Rodriguez Alvarez and Vanda Inacio.
+
+Available at: XXX
 
 ## Instructions
 ### Step 1: Download and install the `R`-package `CondTimeROC`
@@ -18,4 +20,4 @@ devtools::install_github("mxrodriguezUVIGO/CondTimeROC")
  * `r-code-simulations-m2.R`: Replicates the simulation study for Scenario II.
  * `r-code-simulations-m3.R`: Replicates the simulation study for Scenario III.
 
-To run the simulation study, open any of the last three files and execute the code.**Note**: The simulations may be time-consuming.
+To run the simulation study, open any of the last three files and execute the code. **Note**: The simulations may be time-consuming.
