@@ -5,7 +5,7 @@ The repository contains the `R`-code needed to replicate the simulation study ou
 
 by Maria Xose Rodriguez Alvarez and Vanda Inacio.
 
-Available at: XXX
+Available at: https://arxiv.org/abs/2506.13604
 
 ## Instructions
 ### Step 1: Download and install the `R`-package `CondTimeROC`
