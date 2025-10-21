@@ -84,7 +84,14 @@
 ################################################################################
 	sim.data <- function(n, scenario = "m1") {
 		x <- rnorm(n, 1, 1)
-		y <- rnorm(n, x, 1)
+		if(scenario == "m1") {
+			y <- rnorm(n, x, 1)
+		} else {
+			m <- 0.2 * (x + 0.5)^2
+			c <- 0.6
+			s <- sqrt(1 + c * ((x - 1)^2 - 1))
+			y <- rnorm(n, m, s)
+		}
 		u <- runif(n)
 
 		t <- sapply(1:n, function(i, x, y, u, scenario) {
@@ -112,19 +119,33 @@
 ################################################################################
 	theor.data <- function(cutoffs = NULL, seq.fpr = seq(0, 1, l = 100), cov.value, predict.time, scenario = 1) {
 		f.tpr <- function(u, t, x, scenario) {
-			# uu - x since Y = X + epsilon
 			res <- sapply(u, function(uu, x, t, scenario) {
 				aux <- obtain.capital.lambda(t, x, uu, scenario)
-				(1 - exp(-aux))*dnorm(uu-x)
+				if(scenario == "m1") {
+					tmp <- (1 - exp(-aux))*dnorm(uu-x)
+				} else {
+					m <- 0.2 * (x + 0.5)^2
+					c <- 0.6
+					s <- sqrt(1 + c * ((x - 1)^2 - 1))
+					tmp <- (1 - exp(-aux))*(dnorm((uu-m)/s)/s)
+				}
+				tmp
 			}, x = x, t = t, scenario = scenario)
 			res <- c(res)
 			res
 		}
 		f.fpr <- function(u, t, x, scenario) {
-			# uu - x since Y = X + epsilon
 			res <- sapply(u, function(uu, x, t,scenario) {
 				aux <- obtain.capital.lambda(t, x, uu,scenario)
-				exp(-aux)*dnorm(uu-x)
+				if(scenario == "m1") {
+					tmp <- exp(-aux)*dnorm(uu-x)
+				} else {
+					m <- 0.2 * (x + 0.5)^2
+					c <- 0.6
+					s <- sqrt(1 + c * ((x - 1)^2 - 1))
+					tmp <- exp(-aux)*(dnorm((uu-m)/s)/s)
+				}
+				tmp
 			}, x = x, t = t, scenario = scenario)
 			res <- c(res)
 			res
